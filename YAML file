@@ -1,0 +1,49 @@
+//In this scenario, you'll learn how to use Kubectl to create and launch Deployments, Replication Controllers and expose them via Services without writing yaml //definitions. This allows you to quickly launch containers onto the cluster.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp1
+  template:
+    metadata:
+      labels:
+        app: webapp1
+    spec:
+      containers:
+      - name: webapp1
+        image: katacoda/docker-http-server:latest
+        ports:
+        - containerPort: 80
+
+This YAML file deployed to the cluster with the command:
+kubectl create -f deployment.yaml
+kubectl get deploymen
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp1-svc
+  labels:
+    app: webapp1
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    nodePort: 30080
+  selector:
+    app: webapp1
+    
+    
+   
+  kubectl create -f service.yaml
+  kubectl describe svc webapp1-svc
+  
+  
+  //////////////////////////////////////////////////////////////////////////
+  deploy the updated YAML file using 
+  kubectl apply -f deployment.yaml
