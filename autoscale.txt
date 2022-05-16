@@ -1,0 +1,2 @@
+az aks show --resource-group myResourceGroup --name myAKSCluster --query kubernetesVersion --output table
+(Get-AzAksCluster -ResourceGroupName myResourceGroup -Name myAKSCluster).KubernetesVersion
